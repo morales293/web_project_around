@@ -12,7 +12,6 @@ const inAbout = document.querySelector(".main__paragraph_about");
 const inpName = document.querySelector(".popup__input_name");
 const inpAbout = document.querySelector(".popup__input_about");
 const title = document.querySelector(".popup__subtitle");
-
 const initialCards = [
   {
     name: "Valle de Yosemite",
@@ -41,41 +40,43 @@ const initialCards = [
 ];
 
 // Abrir el popup //
-inpName.addEventListener("input", validarCampos);
-inpAbout.addEventListener("input", validarCampos);
+inpName.addEventListener("input", validateFields);
+inpAbout.addEventListener("input", validateFields);
 function openEditAdd(e) {
-  const butClass = e.target.classList;
+  const butClass = e.currentTarget.classList;
   if (butClass.contains("main__button_edit")) {
     inpName.value = inName.textContent;
     inpAbout.value = inAbout.textContent;
     title.textContent = "Editar perfil";
     inpName.placeholder = "Nombre";
     inpAbout.placeholder = "Acerca de mí";
+    form.style.display = "block";
+    popimg.style.display = "none";
     popup.classList.add("popup_opened");
     popButSave.style.display = "block";
     popButAdd.style.display = "none";
-    popimg.style.display = "none";
   } else if (butClass.contains("main__button_add")) {
     inpName.value = "";
     inpAbout.value = "";
     title.textContent = "Nuevo lugar";
     inpName.placeholder = "Título";
     inpAbout.placeholder = "Enlace a la imagen";
+    form.style.display = "block";
+    popimg.style.display = "none";
     popup.classList.add("popup_opened");
     popButSave.style.display = "none";
     popButAdd.style.display = "block";
-    popimg.style.display = "none";
-    validarCampos();
+    validateFields();
   }
 }
 
 function close() {
   popup.classList.remove("popup_opened");
-  popimg.removeAttribute("style");
-  form.removeAttribute("style");
+  popimg.style.display = "none";
+  form.style.display = "block";
 }
 
-function validarCampos() {
+function validateFields() {
   popButAdd.disabled = !(inpName.value && inpAbout.value);
 }
 
